@@ -1,12 +1,34 @@
 package Entity;
 
-public class Joueur {
+public class Joueur extends Utilisateur {
     private int ID_Joueur;
     private Equipe Equipe;
     private int Nbr_Buts;
     private int Nbr_Assists;
     private String Position;
     private boolean Capitaine;
+
+    @Override
+    public String toString() {
+        return "Joueur{" +
+                "ID_Joueur=" + ID_Joueur +
+                ", Equipe=" + Equipe +
+                ", Nbr_Buts=" + Nbr_Buts +
+                ", Nbr_Assists=" + Nbr_Assists +
+                ", Position='" + Position + '\'' +
+                ", Capitaine=" + Capitaine +
+                '}';
+    }
+
+    public Joueur(int ID_Utilisateur, String login, String password, String type, String firstName, String lastName, Equipe equipe, int nbr_Buts, int nbr_Assists, String position, boolean capitaine) {
+        super(ID_Utilisateur, login, password, type, firstName, lastName);
+        ID_Joueur = ID_Utilisateur;
+        Equipe = equipe;
+        Nbr_Buts = nbr_Buts;
+        Nbr_Assists = nbr_Assists;
+        Position = position;
+        Capitaine = capitaine;
+    }
 
     public int getID_Joueur() {
         return ID_Joueur;
@@ -56,12 +78,6 @@ public class Joueur {
         Capitaine = capitaine;
     }
 
-    public Joueur(int ID_Joueur, Entity.Equipe equipe, int nbr_Buts, int nbr_Assists, String position, boolean capitaine) {
-        this.ID_Joueur = ID_Joueur;
-        Equipe = equipe;
-        Nbr_Buts = nbr_Buts;
-        Nbr_Assists = nbr_Assists;
-        Position = position;
-        Capitaine = capitaine;
-    }
+
+
 }

@@ -64,4 +64,24 @@ public class Utilisateur {
         FirstName = firstName;
         LastName = lastName;
     }
+    public Utilisateur( String login, String password, String type, String firstName, String lastName) {
+        ID_Utilisateur = 0;
+        Login = login;
+        Password = password;
+        Type = type;
+        FirstName = firstName;
+        LastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "ID_Utilisateur=" + ID_Utilisateur +
+                ", Login='" + Login + '\'' +
+                ", Password='" + Password + '\'' +
+                ", Type='" + Type + '\'' +
+                ", FirstName='" + FirstName + '\'' +
+                ", LastName='" + LastName + '\'' +
+                '}';
+    }
 }
