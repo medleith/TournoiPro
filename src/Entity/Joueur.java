@@ -29,7 +29,14 @@ public class Joueur extends Utilisateur {
         Position = position;
         Capitaine = capitaine;
     }
-
+    public Joueur(String login, String password, String type, String firstName, String lastName, Equipe equipe, int nbr_Buts, int nbr_Assists, String position, boolean capitaine) {
+        super(login, password, type, firstName, lastName);
+        Equipe = equipe;
+        Nbr_Buts = nbr_Buts;
+        Nbr_Assists = nbr_Assists;
+        Position = position;
+        Capitaine = capitaine;
+    }
     public int getID_Joueur() {
         return ID_Joueur;
     }

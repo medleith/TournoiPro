@@ -3,36 +3,37 @@ package Service;
 import Entity.Utilisateur;
 import Utils.Datasource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 public class UtilisateurService implements IService<Utilisateur> {
-    Connection con;
-    Statement statement;
     String request;
+    PreparedStatement preparedStatement;
     ResultSet resultSet;
-    public void Utilisateur (){
-        con = Datasource.getInstance().getCon();
-    }
     @Override
-    public void ajout(Utilisateur utilisateur) throws SQLException {
+    public int ajout(Utilisateur utilisateur) throws SQLException {
+        int generatedID=0;
         try
         {
             request ="INSERT INTO `utilisateur`(`Login`, `Password`, `Type`, `FirstName`, `LastName`) " + "VALUES ('"+utilisateur.getLogin()+"','"+utilisateur.getPassword()+"','"+utilisateur.getType()+"','"+utilisateur.getFirstName()+"','"+utilisateur.getLastName()+"')";
-            Datasource.getInstance().getCon().createStatement().executeUpdate(request);
+            preparedStatement =  Datasource.getInstance().getCon().prepareStatement(request,Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.executeUpdate();
+            //generatedID = preparedStatement.getGeneratedKeys().getInt(1) ;
+            resultSet = preparedStatement.getGeneratedKeys();
+            if(resultSet.next()){
+                generatedID = resultSet.getInt(1);
+            }
         }
         catch (SQLException exception){
             System.out.println(exception);
         };
+        return generatedID;
     }
     @Override
-    public void supprimer(Utilisateur utilisateur) throws SQLException {
+    public void supprimer(int idUtilisateur) throws SQLException {
         try
         {
-            request ="DELETE FROM `utilisateur` WHERE `ID_Utilisateur` ='"+utilisateur.getID_Utilisateur()+"'";
+            request ="DELETE FROM `utilisateur` WHERE `ID_Utilisateur` ='"+idUtilisateur+"'";
             Datasource.getInstance().getCon().createStatement().executeUpdate(request);
         }
         catch (SQLException exception){
@@ -50,19 +51,19 @@ public class UtilisateurService implements IService<Utilisateur> {
         };
     }
     @Override
-    public Utilisateur recuperer(Utilisateur utilisateur) throws SQLException {
-        Utilisateur util = null;
+    public Utilisateur recuperer(int idUtilisateur) throws SQLException {
+        Utilisateur utilisateur = null;
         try{
-            request = "SELECT * FROM `utilisateur` WHERE `ID_Utilisateur`='"+utilisateur.getID_Utilisateur()+"'";
+            request = "SELECT * FROM `utilisateur` WHERE `ID_Utilisateur`='"+idUtilisateur+"'";
             resultSet = Datasource.getInstance().getCon().createStatement().executeQuery(request);
             while (resultSet.next()){
-                util=new Utilisateur(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6));
+                utilisateur=new Utilisateur(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6));
             }
         }
         catch (SQLException exception){
             System.out.println(exception);
         };
-        return util;
+        return utilisateur;
     }
     public List<Utilisateur> getListUtilisateur() throws SQLException {
         List<Utilisateur> utilisateurList = new ArrayList<>();
