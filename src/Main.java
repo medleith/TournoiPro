@@ -51,11 +51,6 @@ public class Main {
         joueur.setLogin("MODIFIED");
         js.modifier(joueur);
         System.out.println(js.recuperer(33));*/
-        AdministrateurService as = new AdministrateurService();
-        as.getListAdministrateur();
-        List<Administrateur> lu = as.getListAdministrateur();
-        for (Administrateur ul:lu){
-            System.out.println(ul);
-        }
+
     }
 }
