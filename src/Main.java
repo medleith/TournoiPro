@@ -1,6 +1,9 @@
 import Entity.Administrateur;
+import Entity.Equipe;
+import Entity.Joueur;
 import Entity.Utilisateur;
 import Service.AdministrateurService;
+import Service.JoueurService;
 import Service.UtilisateurService;
 import Utils.Datasource;
 
@@ -21,7 +24,7 @@ public class Main {
 
         Utilisateur u1 = us.recuperer(3);
         System.out.println(u1);*/
-        Administrateur a = new Administrateur("Aziz","Aziz","Aziz","Aziz");
+/*      Administrateur a = new Administrateur("Aziz","Aziz","Aziz","Aziz");
         AdministrateurService as = new AdministrateurService();
         as.ajout(a);
         as.getListAdministrateur();
@@ -31,6 +34,22 @@ public class Main {
         }
         Administrateur a2 = as.recuperer(as.ajout(a));
         System.out.println(a2);
-        as.supprimer(a2.getID_Admin());
+        as.supprimer(a2.getID_Admin());*/
+
+       /* Equipe equipe = new Equipe();
+        equipe.setID_Equipe(1);
+        Joueur joueur = new Joueur("Aziz","Aziz","ABC","Aziz",equipe,10,11,"AC",1);
+        JoueurService js = new JoueurService();
+        int i = js.ajout(joueur);
+        System.out.println(js.recuperer(i));
+        List<Joueur> lu = js.getListJoueur();
+        for (Joueur ul:lu){
+            System.out.println(ul);
+        }
+        JoueurService js = new JoueurService();
+        Joueur joueur = js.recuperer(33);
+        joueur.setLogin("MODIFIED");
+        js.modifier(joueur);
+        System.out.println(js.recuperer(33));*/
     }
 }
