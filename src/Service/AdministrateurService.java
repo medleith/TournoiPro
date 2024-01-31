@@ -7,7 +7,7 @@ import Utils.Datasource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-public class AdministrateurService extends UtilisateurService {
+public class AdministrateurService implements IService<Administrateur> {
     UtilisateurService utilisateurService = new UtilisateurService();
     Utilisateur utilisateur;
     PreparedStatement preparedStatement;
