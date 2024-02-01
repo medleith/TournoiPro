@@ -1,48 +1,57 @@
-/*package Service;
+package Service;
 
+import Entity.Partie;
 import Entity.Tournoi;
+import Utils.Datasource;
 
-import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
+public class TournoiService implements IService<Tournoi>{
+    Connection con;
+    Statement statement;
+    String request;
 
-public class TournoiService   {
-    static Statement ste;
-    static Connection conn;
-    public void AddTournoi(Connection conn,Tournoi Tn) {
-
-        String req="INSERT INTO `tournoi` (`ID_Tournoi`, `Nom_Tournoi`, `Date_Debut`, `Date_Fin`, `Nbr_Equipe`) VALUES (NULL, ?, ?, ?, ?);";
+    @Override
+    public int ajout(Tournoi tournoi) throws SQLException {
+        int generatedID = 0;
         try {
-            PreparedStatement ste=conn.prepareStatement(req);
-
-            ste.setString(1,Tn.getNom());
-            ste.setDate(2,parseDate(Tn.getDateDebut().toString()));
-            System.out.println(Tn.getDateDebut());
-            ste.setDate(3, (Date) Tn.getDateFin());
-            ste.setInt(4,Tn.getNombreEquipes());
-            ste.executeUpdate();
-            System.out.println("tournoi ajouté");
+            request = "INSERT INTO `tournoi`(`ID_Tournoi`, `Nom_Tournoi`, `Date_Debut`, `Date_Fin`, `Nbr_Equipe`, `ID_Createur`) " +
+                    "VALUES ('" + tournoi.getID_Tournoi() + "','" + tournoi.getNom_Tournoi() + "','" + tournoi.getDate_Debut() + "','" +
+                    tournoi.getDate_Fin() + "','" + tournoi.getNbr_Equipe() + "','" + tournoi.getCreateur() + "')";
+            generatedID = Datasource.getInstance().getCon().createStatement().executeUpdate(request, Statement.RETURN_GENERATED_KEYS);
+        } catch (SQLException exception) {
+            System.out.println(exception);
         }
-        catch (
-                SQLException e){
-            System.out.println(e);
-        }
-    };
-
-    public static Date parseDate(String dateString) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date parsedDate = sdf.parse(dateString);
-            return new Date(parsedDate.getTime());
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Format de date invalide", e);
-        }
-
+        return generatedID;
     }
 
+    @Override
+    public void supprimer(int idTournoi) throws SQLException {
+        try {
+            request = "DELETE FROM `tournoi` WHERE `ID_Tournoi` ='" + idTournoi + "'";
+            Datasource.getInstance().getCon().createStatement().executeUpdate(request);
+        } catch (SQLException exception) {
+            System.out.println(exception);
+        }
+    }
 
+    @Override
+    public void modifier(Tournoi tournoi) throws SQLException {
+        try {
+            request = "UPDATE `tournoi` SET `Nom_Tournoi`='" + tournoi.getNom_Tournoi() + "',`Date_Debut`='" + tournoi.getDate_Debut() +
+                    "',`Date_Fin`='" + tournoi.getDate_Fin() + "',`Nbr_Equipe`='" + tournoi.getNbr_Equipe() + "',`ID_Createur`='" +
+                    tournoi.getCreateur() + "' WHERE `ID_Tournoi`='" + tournoi.getID_Tournoi() + "'";
+            Datasource.getInstance().getCon().createStatement().executeUpdate(request);
+        } catch (SQLException exception) {
+            System.out.println(exception);
+        }
+    }
 
-
-
-}*/
+    @Override
+    public Tournoi recuperer(int idTournoi) throws SQLException {
+        // Implémenter la logique pour récupérer un tournoi
+        return null;
+    }
+}

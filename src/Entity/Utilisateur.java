@@ -8,6 +8,10 @@ public class Utilisateur {
     private String FirstName;
     private String LastName;
 
+    public Utilisateur() {
+
+    }
+
     public int getID_Utilisateur() {
         return ID_Utilisateur;
     }

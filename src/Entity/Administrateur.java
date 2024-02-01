@@ -7,7 +7,10 @@ public class Administrateur extends Utilisateur{
         super(ID_Utilisateur, login, password, type, firstName, lastName);
         ID_Admin = ID_Utilisateur;
     }
+    public Administrateur( String login, String password, String firstName, String lastName) {
+        super(login,password, "ADM", firstName, lastName);
 
+    }
     public int getID_Admin() {
         return ID_Admin;
     }

@@ -28,13 +28,17 @@ public class Main {
         Equipe e = new Equipe();
         e.setID_Equipe(1);
         Tournoi t = new Tournoi();
-        t.setID_Tournoi(1);
+        t.setID_Tournoi(2);
 
         p.setEquipe(e);
         p.setTournoi(t);
 
         ParticipationService ps = new ParticipationService();
-        ps.supprimer(p);
+        ps.Annuler(p);
+        /*List<Tournoi> lt = ps.RecupererTournois(1);
+        for (Tournoi t1:lt){
+            System.out.println(t1);
+        }*/
 
     }
 }
