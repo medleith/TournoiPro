@@ -5,8 +5,6 @@ public class Equipe {
     private String Nom_Equipe;
     private int Nbr_Joueur;
 
-    public Equipe(){};
-
     @Override
     public String toString() {
         return "Equipe{" +
