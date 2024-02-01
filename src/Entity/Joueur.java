@@ -6,12 +6,17 @@ public class Joueur extends Utilisateur {
     private int Nbr_Buts;
     private int Nbr_Assists;
     private String Position;
-    private boolean Capitaine;
+    private int Capitaine;
 
     @Override
     public String toString() {
         return "Joueur{" +
                 "ID_Joueur=" + ID_Joueur +
+                ", Login='" + this.getLogin() + '\'' +
+                ", Password='" + this.getPassword() + '\'' +
+                ", Type='" + this.getType() + '\'' +
+                ", FirstName='" + this.getFirstName() + '\'' +
+                ", LastName='" + this.getLastName() + '\'' +
                 ", Equipe=" + Equipe +
                 ", Nbr_Buts=" + Nbr_Buts +
                 ", Nbr_Assists=" + Nbr_Assists +
@@ -20,7 +25,7 @@ public class Joueur extends Utilisateur {
                 '}';
     }
 
-    public Joueur(int ID_Utilisateur, String login, String password, String type, String firstName, String lastName, Equipe equipe, int nbr_Buts, int nbr_Assists, String position, boolean capitaine) {
+    public Joueur(int ID_Utilisateur, String login, String password, String type, String firstName, String lastName, Equipe equipe, int nbr_Buts, int nbr_Assists, String position, int capitaine) {
         super(ID_Utilisateur, login, password, type, firstName, lastName);
         ID_Joueur = ID_Utilisateur;
         Equipe = equipe;
@@ -29,7 +34,7 @@ public class Joueur extends Utilisateur {
         Position = position;
         Capitaine = capitaine;
     }
-    public Joueur(String login, String password, String type, String firstName, String lastName, Equipe equipe, int nbr_Buts, int nbr_Assists, String position, boolean capitaine) {
+    public Joueur(String login, String password, String type, String firstName, String lastName, Equipe equipe, int nbr_Buts, int nbr_Assists, String position, int capitaine) {
         super(login, password, type, firstName, lastName);
         Equipe = equipe;
         Nbr_Buts = nbr_Buts;
@@ -37,6 +42,15 @@ public class Joueur extends Utilisateur {
         Position = position;
         Capitaine = capitaine;
     }
+    public Joueur(String login, String password, String firstName, String lastName, Equipe equipe, int nbr_Buts, int nbr_Assists, String position, int capitaine) {
+        super(login, password, "JOU", firstName, lastName);
+        Equipe = equipe;
+        Nbr_Buts = nbr_Buts;
+        Nbr_Assists = nbr_Assists;
+        Position = position;
+        Capitaine = capitaine;
+    }
+
     public int getID_Joueur() {
         return ID_Joueur;
     }
@@ -77,11 +91,11 @@ public class Joueur extends Utilisateur {
         Position = position;
     }
 
-    public boolean isCapitaine() {
+    public int getCapitaine() {
         return Capitaine;
     }
 
-    public void setCapitaine(boolean capitaine) {
+    public void setCapitaine(int capitaine) {
         Capitaine = capitaine;
     }
 

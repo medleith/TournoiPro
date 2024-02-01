@@ -7,7 +7,7 @@ import Utils.Datasource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-public class AdministrateurService extends UtilisateurService {
+public class AdministrateurService implements IService<Administrateur> {
     UtilisateurService utilisateurService = new UtilisateurService();
     Utilisateur utilisateur;
     PreparedStatement preparedStatement;
@@ -22,7 +22,7 @@ public class AdministrateurService extends UtilisateurService {
         {
             generatedID = utilisateurService.ajout(adminToUtilisateur(admin));
             System.out.println("ID : "+generatedID);
-            request ="INSERT INTO `administrateur`(`ID_Admin`) " + "VALUES ('"+generatedID+"')";
+            request ="INSERT INTO administrateur(ID_Admin) " + "VALUES ('"+generatedID+"')";
             Datasource.getInstance().getCon().createStatement().executeUpdate(request,Statement.RETURN_GENERATED_KEYS);
         }
         catch (SQLException exception){
@@ -33,7 +33,7 @@ public class AdministrateurService extends UtilisateurService {
     public void supprimer(int idAdmin) throws SQLException {
         try
         {
-            //request ="DELETE FROM `administrateur` WHERE `ID_Admin` ='"+idAdmin+"'";
+            //request ="DELETE FROM administrateur WHERE ID_Admin ='"+idAdmin+"'";
             //Datasource.getInstance().getCon().createStatement().executeUpdate(request);
             //ON DELETE CASCADE
             utilisateurService.supprimer(idAdmin);
@@ -45,7 +45,7 @@ public class AdministrateurService extends UtilisateurService {
     public void modifier(Administrateur admin) throws SQLException {
         try{
             utilisateurService.modifier(adminToUtilisateur(admin));
-          //request = "UPDATE `administrateur` SET `ID_Admin`='"+admin.getID_Admin()+"' WHERE `ID_Admin`='"+admin.getID_Admin()+"'";
+          //request = "UPDATE administrateur SET ID_Admin='"+admin.getID_Admin()+"' WHERE ID_Admin='"+admin.getID_Admin()+"'";
           //Datasource.getInstance().getCon().createStatement().executeUpdate(request);
         }
         catch (SQLException exception){
@@ -55,7 +55,7 @@ public class AdministrateurService extends UtilisateurService {
     public Administrateur recuperer(int idAdmin) throws SQLException {
         Administrateur admin = null;
         try{
-            //request = "SELECT * FROM `utilisateur` WHERE `ID_Admin`='"+idAdmin+"'";
+            //request = "SELECT * FROM utilisateur WHERE ID_Admin='"+idAdmin+"'";
             //resultSet = Datasource.getInstance().getCon().createStatement().executeQuery(request);
             //while (resultSet.next()){
             //    admin=new Administrateur(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6));
@@ -74,7 +74,7 @@ public class AdministrateurService extends UtilisateurService {
         Administrateur admin;
 
         try{
-            request = "SELECT * FROM `utilisateur` WHERE `Type`='ADM' ";
+            request = "SELECT * FROM utilisateur,administrateur WHERE ID_Utilisateur = ID_Admin";
             resultSet = Datasource.getInstance().getCon().createStatement().executeQuery(request);
             while (resultSet.next()){
                 admin=new Administrateur(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6));
