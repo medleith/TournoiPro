@@ -5,6 +5,17 @@ public class Equipe {
     private String Nom_Equipe;
     private int Nbr_Joueur;
 
+    public Equipe(){};
+
+    @Override
+    public String toString() {
+        return "Equipe{" +
+                "ID_Equipe=" + ID_Equipe +
+                ", Nom_Equipe='" + Nom_Equipe + '\'' +
+                ", Nbr_Joueur=" + Nbr_Joueur +
+                '}';
+    }
+
     public Equipe(int ID_Equipe, String Nom_Equipe, int Nbr_Joueur) {
         this.ID_Equipe = ID_Equipe;
         this.Nom_Equipe = Nom_Equipe;
