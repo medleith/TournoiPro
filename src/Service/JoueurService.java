@@ -77,7 +77,8 @@ public class JoueurService implements IService<Joueur> {
         catch (SQLException exception){
             System.out.println(exception);
         };
-        return joueur;    }
+        return joueur;
+    }
     public List<Joueur> getListJoueur() throws SQLException {
         List<Joueur> JoueurList = new ArrayList<>();
         Joueur joueur;

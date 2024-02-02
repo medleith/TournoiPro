@@ -3,10 +3,17 @@ package Service;
 import Entity.Equipe;
 import Utils.Datasource;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class EquipeService implements IService<Equipe> {
+
+    Connection con;
+    Statement statement;
+    String request;
+    ResultSet resultSet;
 
     @Override
     public int ajout(Equipe equipe) throws SQLException {
@@ -43,26 +50,20 @@ public class EquipeService implements IService<Equipe> {
     }
 
     @Override
-    public List<Equipe> recuperer(int idEquipe) throws SQLException {
-        List<Equipe> equipeList = new ArrayList<>();
+    public Equipe recuperer(int idEquipe) throws SQLException {
+        Equipe equipe = new Equipe();
         try {
             String request = "SELECT * FROM `equipe` WHERE `ID_Equipe`='" + idEquipe +"'";
-            PreparedStatement preparedStatement = Datasource.getInstance().getCon().prepareStatement(request);
-            preparedStatement.setInt(1, idEquipe);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                int ID_Equipe = resultSet.getInt("ID_Equipe");
-                String Nom_Equipe = resultSet.getString("Nom_Equipe");
-                int Nbr_Joueur = resultSet.getInt("Nbr_Joueur");
-
-                equipe = new Equipe(ID_Equipe, Nom_Equipe, Nbr_Joueur);
-                equipeList.add(equipe);
+            resultSet = Datasource.getInstance().getCon().createStatement().executeQuery(request);
+            while (resultSet.next()){
+                equipe.setID_Equipe(resultSet.getInt(1));
+                equipe.setNom_Equipe(resultSet.getString(2));
+                equipe.setNbr_Joueur(resultSet.getInt(3));
             }
         } catch (SQLException exception) {
             System.out.println(exception);
         }
-        return equipeList;
+        return equipe;
     }
 }
 

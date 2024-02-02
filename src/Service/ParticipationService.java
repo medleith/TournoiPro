@@ -49,8 +49,8 @@ public class ParticipationService{
             request = "SELECT * FROM `participation` WHERE `ID_Tournoi`='"+idTournoi+"'";
             resultSet = Datasource.getInstance().getCon().createStatement().executeQuery(request);
             while (resultSet.next()){
-                //Equipe equipe = new EquipeService().recuperer(resultSet.getInt(2));
-                //equipes.add(equipe);
+                Equipe equipe = new EquipeService().recuperer(resultSet.getInt(2));
+                equipes.add(equipe);
             }
         }
         catch (SQLException exception){
